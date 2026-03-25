@@ -33,6 +33,7 @@ class MovieRepositoryImpl implements MovieRepository {
       final models = await _remoteDataSource.searchMovies(query, page: page);
       return models.map((model) => model.toEntity()).toList();
     } on DioException catch (e) {
+      final logger = Logger();
       throw ServerFailure(
         e.response?.statusMessage ?? 'Error del servidor',
         statusCode: e.response?.statusCode,
